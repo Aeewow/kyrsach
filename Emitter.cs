@@ -44,7 +44,7 @@ namespace kyrsach
         }
         public virtual void ResetParticle(Particle particle)
         {
-            if (particle is ParticleColor particleColor)
+            if (particle is ParticleColorful particleColor)
             {
                 particleColor.FromColor = Color.White;
                 particleColor.ToColor = Color.FromArgb(0, Color.White);
