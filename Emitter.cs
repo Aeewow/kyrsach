@@ -49,21 +49,21 @@ namespace kyrsach
                 particleColor.FromColor = Color.White;
                 particleColor.ToColor = Color.FromArgb(0, Color.White);
             }
-            particle.Life = Particle.rnd.Next(LifeMin, LifeMax);
+            particle.Life = Particle.rand.Next(LifeMin, LifeMax);
 
             particle.X = X;
             particle.Y = Y;
 
             var direction = Direction
-                + (double)Particle.rnd.Next(Spreading)
+                + (double)Particle.rand.Next(Spreading)
                 - Spreading / 2;
 
-            var speed = Particle.rnd.Next(SpeedMin, SpeedMax);
+            var speed = Particle.rand.Next(SpeedMin, SpeedMax);
 
             particle.SpeedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
             particle.SpeedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
 
-            particle.Radius = Particle.rnd.Next(RadiusMin, RadiusMax);
+            particle.Radius = Particle.rand.Next(RadiusMin, RadiusMax);
         }
 
         public void UpdateState()
@@ -73,7 +73,7 @@ namespace kyrsach
             {
                 if (particles.Count < ParticlesCount)
                 {
-                    var particle = new ParticleColor();
+                    var particle = new ParticleColorful();
                     particle.FromColor = Color.White;
                     particle.ToColor = Color.FromArgb(0, Color.Black);
 

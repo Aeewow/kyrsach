@@ -15,15 +15,15 @@ namespace kyrsach
             base.ResetParticle(particle); // вызываем базовый сброс частицы, там жизнь переопределяется и все такое
 
             // а теперь тут уже подкручиваем параметры движения
-            particle.X = Particle.rnd.Next(Width); // позиция X -- произвольная точка от 0 до Width
+            particle.X = Particle.rand.Next(Width); // позиция X -- произвольная точка от 0 до Width
             particle.Y = 0;  // ноль -- это верх экрана 
             var direction = Direction
-               + (double)Particle.rnd.Next(Spreading)
+               + (double)Particle.rand.Next(Spreading)
                - Spreading / 2;
 
-            var speed = Particle.rnd.Next(SpeedMin);
+            var speed = Particle.rand.Next(SpeedMin);
             particle.SpeedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed); // падаем вниз по умолчанию
-            particle.SpeedX = Particle.rnd.Next(-2, 2); // разброс влево и вправа у частиц 
+            particle.SpeedX = Particle.rand.Next(-2, 2); // разброс влево и вправа у частиц 
         }   
     }
 }

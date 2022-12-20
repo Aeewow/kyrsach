@@ -8,57 +8,66 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace kyrsach
 {
     public partial class Form1 : Form
     {
-        Emitter emitter;
         List<Emitter> emitters = new List<Emitter>();
-        
+        Emitter emitter;
+        List<IImpactPoint> impactPoints = new List<IImpactPoint>();
+        balls point1; // добавил поле под первую точку
+        balls point2;
+        balls point3;
+        balls point4;
+
         public Form1()
-        {
+        {          
             InitializeComponent();
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
 
-            this.emitter = new Emitter // создаю эмиттер и привязываю его к полю emitter
+            emitter = new LinEmmiter
             {
-                Direction = 0,
-                Spreading = 10,
-                SpeedMin = 10,
-                SpeedMax = 10,
-                ColorFrom = Color.Gold,
-                ColorTo = Color.FromArgb(0, Color.Red),
-                ParticlesPerTick = 10,
-                X = picDisplay.Width / 2,
-                Y = picDisplay.Height / 2,
+                Width = picDisplay.Width,
+                GravitationY = 0.25f,
+                SpeedMin = 1,
+                SpeedMax = 30
             };
-            emitters.Add(this.emitter);
+            emitters.Add(emitter);
 
-           /* emitter = new TopEmitter
+
+            point1 = new balls
             {
-                Width = picDisplay.Width, // Снежок
-                GravitationY = 0.25f
-            };*/
-            /*emitter.impactPoints.Add(new GravityPoint
+                X = picDisplay.Width / 2 + 300,
+                Y = 150,
+                color = Color.Purple
+
+            };
+            point2 = new balls
             {
-                X = (float)(picDisplay.Width * 0.25),
-                Y = picDisplay.Height / 2
-            });
-
-
-            emitter.impactPoints.Add(new AntiGravityPoint
+                X = picDisplay.Width / 2 - 150,
+                Y = 150,
+                color = Color.Aqua
+            };
+            point3 = new balls
             {
-                X = picDisplay.Width / 2,
-                Y = picDisplay.Height / 2
-            });
-
-
-            emitter.impactPoints.Add(new GravityPoint
+                X = picDisplay.Width / 2 + 150,
+                Y = 150,
+                color = Color.Violet
+            };
+            point4 = new balls
             {
-                X = (float)(picDisplay.Width * 0.75),
-                Y = picDisplay.Height / 2
-            });*/
+                X = picDisplay.Width / 2 - 300,
+                Y = 150,
+                color = Color.Aquamarine
+            };
+
+            // привязываем поля к эмиттеру
+            emitter.impactPoints.Add(point1);
+            emitter.impactPoints.Add(point2);
+            emitter.impactPoints.Add(point3);
+            emitter.impactPoints.Add(point4);
         }
 
         private void picDisplay_Click(object sender, EventArgs e)
@@ -76,8 +85,7 @@ namespace kyrsach
             }
             picDisplay.Invalidate();
         }
-        private int MousePositionX = 0;
-        private int MousePositionY = 0;
+        
         private void picDisplay_MouseMove(object sender, MouseEventArgs e)
         {
             emitter.MousePositionX = e.X;
@@ -86,17 +94,55 @@ namespace kyrsach
 
         private void tbDirection_Scroll(object sender, EventArgs e)
         {
-            emitter.Direction = tbDirection.Value;
+            emitter.SpeedMin = tbDirection.Value;
+            
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            emitter.Spreading = SpreadingTrack.Value;
+            foreach (var p in emitter.impactPoints)
+            {
+                if (p is balls)
+                {
+                    (p as balls).rad = SizeTrack.Value;
+                }
+            }
         }
 
-        private void PartickleTrack_Scroll(object sender, EventArgs e)
+
+        private void label1_Click(object sender, EventArgs e)
         {
-            emitter.ParticlesPerTick = PartickleTrack.Value;
+
+        }
+
+        private void trackBar1_Scroll_1(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void picDisplay_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                emitter.impactPoints.Add(new balls
+                {
+                    X = e.X,
+                    Y = e.Y,
+                    color = Color.Red
+                });
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                foreach (var impactPoint in emitter.impactPoints)
+                {
+                    if (!(impactPoint is balls ball)) continue;
+                    if (!(impactPoint.color == Color.Blue)) continue;
+                    if (!(Math.Abs(ball.X - e.X) <= ball.rad) || !(Math.Abs(ball.Y - e.Y) <= ball.rad))
+                        continue;
+                    emitter.impactPoints.Remove(ball);
+                    break;
+                }
+            }
         }
     }
 }

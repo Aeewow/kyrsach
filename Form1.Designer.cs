@@ -33,13 +33,11 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tbDirection = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
-            this.SpreadingTrack = new System.Windows.Forms.TrackBar();
+            this.SizeTrack = new System.Windows.Forms.TrackBar();
             this.label2 = new System.Windows.Forms.Label();
-            this.PartickleTrack = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SpreadingTrack)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PartickleTrack)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SizeTrack)).BeginInit();
             this.SuspendLayout();
             // 
             // picDisplay
@@ -50,6 +48,7 @@
             this.picDisplay.TabIndex = 0;
             this.picDisplay.TabStop = false;
             this.picDisplay.Click += new System.EventHandler(this.picDisplay_Click);
+            this.picDisplay.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picDisplay_MouseClick);
             this.picDisplay.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picDisplay_MouseMove);
             // 
             // timer1
@@ -61,58 +60,50 @@
             // tbDirection
             // 
             this.tbDirection.Location = new System.Drawing.Point(12, 567);
-            this.tbDirection.Maximum = 359;
+            this.tbDirection.Maximum = 30;
             this.tbDirection.Name = "tbDirection";
             this.tbDirection.Size = new System.Drawing.Size(182, 69);
             this.tbDirection.TabIndex = 1;
+            this.tbDirection.Value = 1;
             this.tbDirection.Scroll += new System.EventHandler(this.tbDirection_Scroll);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(25, 628);
+            this.label1.Location = new System.Drawing.Point(8, 628);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(169, 20);
+            this.label1.Size = new System.Drawing.Size(208, 20);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Направление частиц";
+            this.label1.Text = "Скорость падения снежка";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // SpreadingTrack
+            // SizeTrack
             // 
-            this.SpreadingTrack.Location = new System.Drawing.Point(246, 567);
-            this.SpreadingTrack.Maximum = 359;
-            this.SpreadingTrack.Name = "SpreadingTrack";
-            this.SpreadingTrack.Size = new System.Drawing.Size(182, 69);
-            this.SpreadingTrack.TabIndex = 3;
-            this.SpreadingTrack.Value = 50;
-            this.SpreadingTrack.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            this.SizeTrack.Location = new System.Drawing.Point(679, 567);
+            this.SizeTrack.Maximum = 140;
+            this.SizeTrack.Minimum = 80;
+            this.SizeTrack.Name = "SizeTrack";
+            this.SizeTrack.Size = new System.Drawing.Size(182, 69);
+            this.SizeTrack.TabIndex = 4;
+            this.SizeTrack.Value = 80;
+            this.SizeTrack.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(273, 628);
+            this.label2.Location = new System.Drawing.Point(714, 628);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(121, 20);
+            this.label2.Size = new System.Drawing.Size(118, 20);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Разлёт частиц";
-            // 
-            // PartickleTrack
-            // 
-            this.PartickleTrack.Location = new System.Drawing.Point(495, 567);
-            this.PartickleTrack.Minimum = 1;
-            this.PartickleTrack.Name = "PartickleTrack";
-            this.PartickleTrack.Size = new System.Drawing.Size(162, 69);
-            this.PartickleTrack.TabIndex = 8;
-            this.PartickleTrack.Value = 1;
-            this.PartickleTrack.Scroll += new System.EventHandler(this.PartickleTrack_Scroll);
+            this.label2.Text = "Размер кругов";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1527, 657);
-            this.Controls.Add(this.PartickleTrack);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.SpreadingTrack);
+            this.Controls.Add(this.SizeTrack);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbDirection);
             this.Controls.Add(this.picDisplay);
@@ -120,8 +111,7 @@
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SpreadingTrack)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PartickleTrack)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SizeTrack)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -133,9 +123,8 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.TrackBar tbDirection;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TrackBar SpreadingTrack;
+        private System.Windows.Forms.TrackBar SizeTrack;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TrackBar PartickleTrack;
     }
 }
 
