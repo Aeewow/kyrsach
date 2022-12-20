@@ -88,5 +88,15 @@ namespace kyrsach
         {
             emitter.Direction = tbDirection.Value;
         }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            emitter.Spreading = SpreadingTrack.Value;
+        }
+
+        private void PartickleTrack_Scroll(object sender, EventArgs e)
+        {
+            emitter.ParticlesPerTick = PartickleTrack.Value;
+        }
     }
 }

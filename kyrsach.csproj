@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AntiGravityPoint.cs" />
+    <Compile Include="balls.cs" />
     <Compile Include="Emitter.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -56,6 +57,7 @@
     </Compile>
     <Compile Include="GravityPoint.cs" />
     <Compile Include="IImpactPoint.cs" />
+    <Compile Include="LinEmmiter.cs" />
     <Compile Include="Particle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

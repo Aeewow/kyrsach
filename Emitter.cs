@@ -13,6 +13,7 @@ namespace kyrsach
         public float GravitationY = 0;
         List<Particle> particles = new List<Particle>();
         public List<IImpactPoint> impactPoints = new List<IImpactPoint>();
+        public List<Point> gravityPoints = new List<Point>();
         public int MousePositionX;
         public int MousePositionY;
         public int ParticlesCount = 500;
@@ -26,7 +27,7 @@ namespace kyrsach
         public int RadiusMax = 10; // максимальный радиус частицы
         public int LifeMin = 20; // минимальное время жизни частицы
         public int LifeMax = 100; // максимальное время жизни частицы
-        public int ParticlesPerTick = 1;
+        public int ParticlesPerTick = 1;    
 
         public Color ColorFrom = Color.White; // начальный цвет частицы
         public Color ColorTo = Color.FromArgb(0, Color.Black); // конечный цвет частиц
@@ -43,46 +44,57 @@ namespace kyrsach
         }
         public virtual void ResetParticle(Particle particle)
         {
-            particle.Life = Particle.rand.Next(LifeMin, LifeMax);
+            if (particle is ParticleColor particleColor)
+            {
+                particleColor.FromColor = Color.White;
+                particleColor.ToColor = Color.FromArgb(0, Color.White);
+            }
+            particle.Life = Particle.rnd.Next(LifeMin, LifeMax);
 
             particle.X = X;
             particle.Y = Y;
 
             var direction = Direction
-                + (double)Particle.rand.Next(Spreading)
+                + (double)Particle.rnd.Next(Spreading)
                 - Spreading / 2;
 
-            var speed = Particle.rand.Next(SpeedMin, SpeedMax);
+            var speed = Particle.rnd.Next(SpeedMin, SpeedMax);
 
             particle.SpeedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
             particle.SpeedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
 
-            particle.Radius = Particle.rand.Next(RadiusMin, RadiusMax);
+            particle.Radius = Particle.rnd.Next(RadiusMin, RadiusMax);
         }
 
         public void UpdateState()
         {
-            int particlesToCreate = ParticlesPerTick;
+
+            for (var i = 0; i < 10; ++i)
+            {
+                if (particles.Count < ParticlesCount)
+                {
+                    var particle = new ParticleColor();
+                    particle.FromColor = Color.White;
+                    particle.ToColor = Color.FromArgb(0, Color.Black);
+
+                    ResetParticle(particle); // добавили вызов ResetParticle
+
+                    particles.Add(particle);
+                }
+                else
+                {
+                    break;
+                }
+
+            }
             foreach (var particle in particles)
             {
-                particle.Life -= 1;
-                if (particle.Life <= 0)
+                particle.Life -= 1; // уменьшаю здоровье
+                                    // если здоровье кончилось
+                if (particle.Life < 0)
                 {
-                    particle.Life = 20 + Particle.rand.Next(100);
-                    particle.X = MousePositionX;
-                    particle.Y = MousePositionY;
-                    var direction = (double)Particle.rand.Next(360);
-                    var speed = 1 + Particle.rand.Next(10);
-
-                    particle.SpeedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
-                    particle.SpeedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
-                    particle.Radius = 2 + Particle.rand.Next(10);
                     ResetParticle(particle);
-                    if(particlesToCreate > 0)
-                    {
-                        particlesToCreate -= 1; // поэтому уменьшаем счётчик созданных частиц на 1
-                        ResetParticle(particle);
-                    }
+
                 }
                 else
                 {
@@ -91,20 +103,16 @@ namespace kyrsach
                         point.ImpactParticle(particle);
                     }
 
+
                     particle.SpeedX += GravitationX;
                     particle.SpeedY += GravitationY;
 
                     particle.X += particle.SpeedX;
                     particle.Y += particle.SpeedY;
                 }
+
             }
-            while (particlesToCreate >= 1)
-            {
-                particlesToCreate -= 1;
-                var particle = CreateParticle();
-                ResetParticle(particle);
-                particles.Add(particle);
-            }
+
         }
         
        

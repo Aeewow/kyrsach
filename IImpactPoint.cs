@@ -11,21 +11,16 @@ namespace kyrsach
     {
         public float X;
         public float Y;
-
+        public Color color;
+        public int schet = 0;
 
         public abstract void ImpactParticle(Particle particle);
         
 
          
-        public void Render(Graphics g)
+        public virtual void Render(Graphics g)
         {
-            g.FillEllipse(
-                    new SolidBrush(Color.Red),
-                    X - 5,
-                    Y - 5,
-                    10,
-                    10
-                );
+            
         }
     }
 }
