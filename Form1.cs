@@ -39,27 +39,27 @@ namespace kyrsach
 
             point1 = new balls
             {
-                X = picDisplay.Width / 2 + 300,
-                Y = 150,
+                X = picDisplay.Width / 2 + 50,
+                Y = picDisplay.Height / 4f,
                 color = Color.Purple
 
             };
             point2 = new balls
             {
-                X = picDisplay.Width / 2 - 150,
-                Y = 150,
+                X = picDisplay.Width / 2 - 50,
+                Y = picDisplay.Height / 2f,
                 color = Color.Aqua
             };
             point3 = new balls
             {
-                X = picDisplay.Width / 2 + 150,
-                Y = 150,
+                X = picDisplay.Width / 2 + 50,
+                Y = picDisplay.Height / 3f,
                 color = Color.Violet
             };
             point4 = new balls
             {
-                X = picDisplay.Width / 2 - 300,
-                Y = 150,
+                X = picDisplay.Width / 2 - 50,
+                Y = 260,
                 color = Color.Aquamarine
             };
 
@@ -143,6 +143,26 @@ namespace kyrsach
                     break;
                 }
             }
+        }
+
+        private void trackBar1_Scroll_2(object sender, EventArgs e)
+        {
+            point1.X = trackBar1.Value;
+        }
+
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+            point3.X = trackBar2.Value;
+        }
+
+        private void trackBar3_Scroll(object sender, EventArgs e)
+        {
+            point2.X = trackBar3.Value;
+        }
+
+        private void trackBar4_Scroll(object sender, EventArgs e)
+        {
+            point4.X = trackBar4.Value;
         }
     }
 }

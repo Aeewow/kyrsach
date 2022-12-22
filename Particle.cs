@@ -13,10 +13,10 @@ namespace kyrsach
         public float X;
         public float Y;
 
-        public float SpeedX;
-        public float SpeedY;
+        public float SpeedX;// скорость перемещения по оси X
+        public float SpeedY;// скорость перемещения по оси Y
 
-        
+
         public float Life;
         public static Random rand = new Random();
         
@@ -25,7 +25,8 @@ namespace kyrsach
         {
             var direction = (double)rand.Next(360);
             var speed = 1 + rand.Next(10);
-          
+
+            // рассчитываем вектор скорости
             SpeedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
             SpeedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
 
@@ -35,8 +36,14 @@ namespace kyrsach
 
         public virtual void Draw(Graphics g)
         {
+            // рассчитываем коэффициент прозрачности по шкале от 0 до 1.0
             float k = Math.Min(1f, Life / 100);
+
+            // рассчитываем значение альфа канала в шкале от 0 до 255
+            // по аналогии с RGB, он используется для задания прозрачности
             int alpha = (int)(k * 255);
+
+            // создаем цвет из уже существующего, но привязываем к нему еще и значение альфа канала
             var color = Color.FromArgb(alpha, Color.Black);
             var b = new SolidBrush(color);
             g.FillEllipse(b, X - Radius, Y - Radius, Radius * 2, Radius * 2);
@@ -48,7 +55,7 @@ namespace kyrsach
         public Color FromColor;
         public Color ToColor;
 
-        public static Color MixColor(Color color1, Color color2, float k)
+        public static Color MixColor(Color color1, Color color2, float k) // замена цвета
         {
             return Color.FromArgb(
                 (int)(color2.A * k + color1.A * (1 - k)),
@@ -57,12 +64,12 @@ namespace kyrsach
                 (int)(color2.B * k + color1.B * (1 - k))
             );
         }
-        public override void Draw(Graphics g)
+        public override void Draw(Graphics g) // прорисовка цвета
         {
             float k = Math.Min(1f, Life / 100);
 
       
-            var color = MixColor(ToColor, FromColor, k);
+            var color = MixColor(ToColor, FromColor, k);    
             var b = new SolidBrush(color);
 
             g.FillEllipse(b, X - Radius, Y - Radius, Radius * 2, Radius * 2);
