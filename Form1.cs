@@ -21,7 +21,7 @@ namespace kyrsach
         balls point2;
         balls point3;
         balls point4;
-        List<RainEater> gravityPoints = new List<RainEater>(); //список точек поглощения
+        List<CountEater> gravityPoints = new List<CountEater>(); //список точек поглощения
         balls cirlce1, cirlce2, cirlce3, cirlce4, cirlce5, cirlce6, cirlce7;
 
 
@@ -131,7 +131,7 @@ namespace kyrsach
         {
             var x = Cursor.Position.X;
             var y = Cursor.Position.Y;
-            RainEater point = new RainEater
+            CountEater point = new CountEater
             {
                 X = e.X,
                 Y = e.Y,
