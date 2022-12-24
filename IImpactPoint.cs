@@ -15,12 +15,12 @@ namespace kyrsach
         public int schet = 0;
 
         public abstract void ImpactParticle(Particle particle);
-        
 
-         
+
+
         public virtual void Render(Graphics g)
         {
-            
+
         }
     }
 }

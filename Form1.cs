@@ -21,6 +21,9 @@ namespace kyrsach
         balls point2;
         balls point3;
         balls point4;
+        List<RainEater> gravityPoints = new List<RainEater>(); //список точек поглощения
+        balls cirlce1, cirlce2, cirlce3, cirlce4, cirlce5, cirlce6, cirlce7;
+
 
         public Form1()
         {          
@@ -36,38 +39,42 @@ namespace kyrsach
             };
             emitters.Add(emitter);
 
-
-            point1 = new balls
+            cirlce2= new balls
             {
-                X = picDisplay.Width / 2 + 50,
-                Y = picDisplay.Height / 4f,
-                color = Color.Purple
-
+                X = picDisplay.Width / 2 ,
+                Y = picDisplay.Height * 7 / 10,
+                R = 100,
+                pen=Color.Red
             };
-            point2 = new balls
+            cirlce4 = new balls
             {
-                X = picDisplay.Width / 2 - 50,
-                Y = picDisplay.Height / 2f,
-                color = Color.Aqua
+                X = picDisplay.Width / 4,
+                Y = picDisplay.Height*2 / 5,
+                R = 70,
+                pen = Color.Yellow
             };
-            point3 = new balls
+            cirlce3 = new balls
             {
-                X = picDisplay.Width / 2 + 50,
-                Y = picDisplay.Height / 3f,
-                color = Color.Violet
+                X = picDisplay.Width * 4 / 5+15,
+                Y = picDisplay.Height * 7 / 10,
+                R = 100,
+                pen = Color.Lime
             };
-            point4 = new balls
+            cirlce1 = new balls
             {
-                X = picDisplay.Width / 2 - 50,
-                Y = 260,
-                color = Color.Aquamarine
+                X = picDisplay.Width / 5 - 10,
+                Y = picDisplay.Height * 7 / 10,
+                R = 100,
+                pen = Color.Blue
             };
+            emitter.impactPoints.Add(cirlce1);
+            emitter.impactPoints.Add(cirlce2);
+            emitter.impactPoints.Add(cirlce3);
+            emitter.impactPoints.Add(cirlce4);
+            
 
             // привязываем поля к эмиттеру
-            emitter.impactPoints.Add(point1);
-            emitter.impactPoints.Add(point2);
-            emitter.impactPoints.Add(point3);
-            emitter.impactPoints.Add(point4);
+            
         }
 
         private void picDisplay_Click(object sender, EventArgs e)
@@ -104,7 +111,7 @@ namespace kyrsach
             {
                 if (p is balls)
                 {
-                    (p as balls).rad = SizeTrack.Value;
+                    (p as balls).R = SizeTrack.Value;
                 }
             }
         }
@@ -122,47 +129,35 @@ namespace kyrsach
 
         private void picDisplay_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            var x = Cursor.Position.X;
+            var y = Cursor.Position.Y;
+            RainEater point = new RainEater
             {
-                emitter.impactPoints.Add(new balls
-                {
-                    X = e.X,
-                    Y = e.Y,
-                    color = Color.Red
-                });
-            }
-            else if (e.Button == MouseButtons.Right)
-            {
-                foreach (var impactPoint in emitter.impactPoints)
-                {
-                    if (!(impactPoint is balls ball)) continue;
-                    if (!(impactPoint.color == Color.Blue)) continue;
-                    if (!(Math.Abs(ball.X - e.X) <= ball.rad) || !(Math.Abs(ball.Y - e.Y) <= ball.rad))
-                        continue;
-                    emitter.impactPoints.Remove(ball);
-                    break;
-                }
-            }
+                X = e.X,
+                Y = e.Y,
+            };
+            gravityPoints.Add(point);
+            emitter.impactPoints.Add(point);
         }
 
         private void trackBar1_Scroll_2(object sender, EventArgs e)
         {
-            point1.X = trackBar1.Value;
+            cirlce1.X = trackBar1.Value;
         }
 
         private void trackBar2_Scroll(object sender, EventArgs e)
         {
-            point3.X = trackBar2.Value;
+            cirlce2.X = trackBar2.Value;
         }
 
         private void trackBar3_Scroll(object sender, EventArgs e)
         {
-            point2.X = trackBar3.Value;
+            cirlce3.X = trackBar3.Value;
         }
 
         private void trackBar4_Scroll(object sender, EventArgs e)
         {
-            point4.X = trackBar4.Value;
+            cirlce4.X = trackBar4.Value;
         }
     }
 }

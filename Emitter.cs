@@ -36,7 +36,7 @@ namespace kyrsach
 
         public virtual Particle CreateParticle()
         {
-            var particle = new ParticleColorful();
+            var particle = new Particle();
             particle.FromColor = ColorFrom;
             particle.ToColor = ColorTo;
 
@@ -44,7 +44,7 @@ namespace kyrsach
         }
         public virtual void ResetParticle(Particle particle)
         {
-            if (particle is ParticleColorful particleColor)
+            if (particle is Particle particleColor)
             {
                 particleColor.FromColor = Color.White;
                 particleColor.ToColor = Color.FromArgb(0, Color.White);
@@ -73,7 +73,7 @@ namespace kyrsach
             {
                 if (particles.Count < ParticlesCount)
                 {
-                    var particle = new ParticleColorful();
+                    var particle = new Particle();
                     particle.FromColor = Color.White;
                     particle.ToColor = Color.FromArgb(0, Color.Black);
 
