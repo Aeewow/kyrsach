@@ -42,7 +42,6 @@ namespace kyrsach
                  new Font("Verdana", 14),
                  new SolidBrush(Color.OrangeRed),
                  X, Y, stringFormat);
-
         }
     }
 }
