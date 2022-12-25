@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace kyrsach
 {
-    public class RainEater : IImpactPoint
+    public class CountEater : IImpactPoint
     {
         public int Radius = 100;
         public int Count = 0;
@@ -38,7 +38,7 @@ namespace kyrsach
             stringFormat.Alignment = StringAlignment.Center;
             stringFormat.LineAlignment = StringAlignment.Center;
             g.DrawString(
-                 $"Сборано: \n{Count}",
+                 $"Собрано: \n{Count}",
                  new Font("Verdana", 14),
                  new SolidBrush(Color.OrangeRed),
                  X, Y, stringFormat);

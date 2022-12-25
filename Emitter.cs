@@ -34,14 +34,7 @@ namespace kyrsach
 
 
 
-        public virtual Particle CreateParticle()
-        {
-            var particle = new Particle();
-            particle.FromColor = ColorFrom;
-            particle.ToColor = ColorTo;
-
-            return particle;
-        }
+        
         public virtual void ResetParticle(Particle particle)
         {
             if (particle is Particle particleColor)
